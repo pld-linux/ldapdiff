@@ -1,0 +1,15 @@
+ldaplog.c: In function 'ldiflogsyslog':
+ldaplog.c:72:2: error: format not a string literal and no format arguments [-Werror=format-security]
+  syslog(level,msg);
+  ^
+--- ldapdiff-1.4.1/ldaplog.c~	2008-10-23 22:10:05.000000000 +0300
++++ ldapdiff-1.4.1/ldaplog.c	2013-07-16 14:16:35.775472728 +0300
+@@ -69,7 +69,7 @@
+   case LOG2 : level = LOG_DEBUG;
+        break;
+  }
+- syslog(level,msg);
++ syslog(level,"%s",msg);
+  closelog();
+ }
+ 

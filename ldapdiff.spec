@@ -6,11 +6,10 @@ License:	GPL v3+
 Group:		Applications/System
 Source0:	https://launchpad.net/ldapdiff/trunk/%{version}/+download/%{name}-%{version}_src.tgz
 # Source0-md5:	5da4ec7860cad79804d5af3958af7a2a
+Patch0:		format-security.patch
 URL:		http://launchpad.net/ldapdiff
 BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define	rpmcflags -Wno-error=format-security
 
 %description
 ldapdiff combines "diff" and "patch" functionality in one application.
@@ -20,7 +19,10 @@ files.
 
 %prep
 %setup -q
-%{__make} clean
+%patch0 -p1
+
+# dirty tarball. cleanup
+rm ldapdiff *.o
 
 %build
 %configure
